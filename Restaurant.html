@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>restaurant</title>
+    <link rel="stylesheet" href="styles/base.css"/>
+    <link rel="stylesheet" href="styles/restaurant.css"/>
+    <script src="js/restaurant.js" defer></script>
+  </head>
+
+  <body>
+
+    <nav>
+    <ul id="nav">
+			<li class="navLi"><a class="navA" href="home.php">Home</a></li>
+			<li class="navLi"><a class="navA active" href="restaurants.php">Find Restaurants</a></li>
+			<li class="navLi"><a class="navA" href="Add.html">Add Restaurants</a></li>
+			<li class="navLi"><a class="navA" href="Profile.html">Profile</a></li>
+		</ul>
+    </nav>
+
+    <main class="restaurant-page">
+
+      <!-- Restaurant title -->
+      <h1 id="restaurant-title"></h1>
+
+      <!-- Cuisine / tags -->
+      <ul id="restaurant-tags" class="tags"></ul>
+
+      <hr>
+
+      <!-- Restaurant review / description -->
+      <section id="restaurant-content"></section>
+
+      <hr>
+
+      <!-- Navigation -->
+      <div class="article-navigation">
+        <a id="prev-link" href="#">Previous Restaurant</a>
+        <a id="next-link" href="#">Next Restaurant</a>
+      </div>
+
+      <button id="download-btn" type="button">Download Highlights</button>
+
+    </main>
+
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>restaurants</title>
+    <link rel="stylesheet" href="styles/base.css"/>
+    <link rel="stylesheet" href="styles/restaurants.css"/>
+    <script src="js/restaurants.js" defer></script>
+  </head>
+
+  <body>
+    <nav>
+     <ul id="nav">
+			<li class="navLi"><a class="navA" href="home.php">Home</a></li>
+			<li class="navLi"><a class="navA active" href="restaurants.php">Find Restaurants</a></li>
+			<li class="navLi"><a class="navA" href="Add.html">Add Restaurants</a></li>
+			<li class="navLi"><a class="navA" href="Profile.html">Profile</a></li>
+		</ul>
+    </nav>
+
+    <header class="header">
+      <div class="search-tags">
+        <ul class="tags"></ul>
+      </div>
+
+      <div class="search-bar">
+        <input type="search" placeholder="Search restaurants">
+      </div>
+    </header>
+
+    <hr style="background: var(--accent-background); height: 2px">
+
+    <!-- php will inject restaurant blocks here -->
+    <main id="restaurants-main"></main>
+  </body>
+</html>

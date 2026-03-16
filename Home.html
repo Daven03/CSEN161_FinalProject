@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/home.css">
+  </head>
+  <body>
+    <nav>
+      <ul id="nav">
+        <li class="navLi"><a class="navA active" href="home.php">Home</a></li>
+        <li class="navLi"><a class="navA" href="restaurants.php">Find Restaurants</a></li>
+        <li class="navLi"><a class="navA" href="Add.html">Add a Restaurant</a></li>
+        <li class="navLi"><a class="navA" href="Profile.html">Profile</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>Restaurant Review Website</h1>
+      <p class="details">Rate and review restaurants in Santa Clara</p>
+
+      <hr>
+
+      <section class="section">
+        <h2>Welcome</h2>
+        <p>
+          Discover restaurants, read reviews, and share your own dining experiences.
+        </p>
+      </section>
+
+      <hr>
+
+      <section class="section">
+        <h2>Latest Restaurant Review</h2>
+        <p id="home-latest-time" class="latest-caption">Loading latest review...</p>
+
+        <article id="home-latest-card" class="latest-card">
+          <h3 id="home-latest-title">Loading latest restaurant...</h3>
+          <ul id="home-latest-tags" class="tags"></ul>
+          <p id="home-latest-preview"></p>
+          <a id="home-continue-link" href="restaurants.php">Read Full Review</a>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026</p>
+    </footer>
+  </body>
+</html>

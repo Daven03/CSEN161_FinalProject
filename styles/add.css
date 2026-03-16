@@ -1,0 +1,79 @@
+.page-shell {
+  max-width: 920px;
+  margin: 40px auto;
+  padding: 0 20px 48px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin-bottom: 12px;
+}
+
+.details {
+  max-width: 680px;
+  margin: 0 auto;
+  color: #666;
+}
+
+.form-card {
+  background: #fff;
+  border: 1px solid var(--gray);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 10px 25px rgba(46, 105, 255, 0.08);
+}
+
+.form-intro h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.field-grid {
+  display: grid;
+  gap: 12px;
+}
+
+label {
+  font-weight: 600;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--dark-gray);
+  border-radius: 10px;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+#submit {
+  margin-top: 18px;
+  background: var(--accent-background);
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.85rem 1.2rem;
+  font: inherit;
+  font-weight: 600;
+}
+
+.required {
+  color: #c62828;
+}

@@ -1,0 +1,127 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    --accent-background: #4ea3ff;
+    --accent-text: #2e69ff;
+    --gray: #eee;
+    --dark-gray: #ccc;
+    --darkest-gray: #aaa;
+    --black: #333;
+
+    color: var(--black);
+    line-height: 1.7;
+    font-family: Georgia, serif;
+}
+
+header h1 {
+    color: var(--accent-text);
+}
+
+header * {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+header time {
+    color: var(--darkest-gray);
+}
+
+
+button {
+    cursor: pointer;
+    background-color: var(--gray);
+    border: 0;
+
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Hover state for buttons */
+button:hover {
+    background-color: var(--dark-gray);
+}
+
+/* click state for buttons */
+button:active {
+    background-color: var(--darkest-gray);
+}
+
+button.img {
+    width: 2rem;
+    height: 2rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--accent-background);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Remove bullet points */
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+/* Space between nav items */
+nav ul li {
+    margin-right: 1rem;
+}
+
+.navA {
+    display: block;
+    padding: 1rem 0.35rem;
+    color: white;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+}
+
+.navA:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.75);
+}
+
+.navA.active {
+    border-bottom-color: white;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.tags {
+  list-style: none;
+  display: flex;
+  gap: 15px;       
+}
+
+.tag {
+  background: #FFA07A;    
+  padding: 10px 20px;
+  border-radius: 10px;   
+  font-size: 16px;
+}
+
+.hidden {
+  display: none;
+}
+

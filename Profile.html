@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/profile.css">
+  </head>
+  <body>
+    <nav>
+      <ul id="nav">
+        <li class="navLi"><a class="navA" href="home.php">Home</a></li>
+        <li class="navLi"><a class="navA" href="restaurants.php">Find Restaurants</a></li>
+        <li class="navLi"><a class="navA" href="Add.html">Add a Restaurant</a></li>
+        <li class="navLi"><a class="navA active" href="Profile.html">Profile</a></li>
+      </ul>
+    </nav>
+
+    <main class="profile-page">
+      <section class="profile-card">
+        <p class="eyebrow">Reviewer Spotlight</p>
+        <h1>Reviewer Name</h1>
+        <p class="summary">
+          A local food reviewer sharing favorite spots, recent write-ups, and go-to places around Santa Clara.
+        </p>
+
+        <section class="favorites-section">
+          <h2>Favorite Restaurants</h2>
+          <div class="favorite-cards">
+            <article class="favorite-card">
+              <h3>Mission Slice House</h3>
+              <ul class="tags">
+                <li class="tag">pizza</li>
+                <li class="tag">casual</li>
+                <li class="tag">downtown</li>
+              </ul>
+              <p>
+                A dependable favorite for quick slices, crisp crust, and an easy lunch stop with friends.
+              </p>
+              <a href="restaurant.php?id=1">Read Full Review</a>
+            </article>
+
+            <article class="favorite-card">
+              <h3>Blue Harbor Grill</h3>
+              <ul class="tags">
+                <li class="tag">seafood</li>
+                <li class="tag">date-night</li>
+                <li class="tag">grill</li>
+              </ul>
+              <p>
+                A polished spot with fresh seafood, calm atmosphere, and meals that feel a little more special.
+              </p>
+              <a href="restaurant.php?id=3">Read Full Review</a>
+            </article>
+
+            <article class="favorite-card">
+              <h3>Maple Street Brunch</h3>
+              <ul class="tags">
+                <li class="tag">breakfast</li>
+                <li class="tag">brunch</li>
+                <li class="tag">coffee</li>
+              </ul>
+              <p>
+                One of the best choices for a relaxed morning, strong coffee, and a reliable brunch menu.
+              </p>
+              <a href="restaurant.php?id=6">Read Full Review</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="recent-reviews-section">
+          <h2>Most Recent Reviews</h2>
+          <ul class="recent-review-list">
+            <li>Mission Slice House had the best balance of speed, flavor, and value for a casual weekday meal.</li>
+            <li>Sunny Bowl Cafe stood out for fresh ingredients and a build-your-own menu that stayed satisfying.</li>
+            <li>Casa Verde Taqueria delivered bold flavor, quick service, and tacos that felt worth coming back for.</li>
+            <li>Maple Street Brunch was busy but worth it for the coffee, pancakes, and welcoming weekend atmosphere.</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026</p>
+    </footer>
+  </body>
+</html>

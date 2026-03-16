@@ -1,0 +1,47 @@
+.restaurant-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px 48px;
+}
+
+#restaurant-title {
+  margin-bottom: 16px;
+  color: var(--accent-text);
+}
+
+#restaurant-tags {
+  padding: 0;
+  margin: 0 0 24px;
+  flex-wrap: wrap;
+}
+
+#restaurant-content {
+  font-size: 1.05rem;
+}
+
+#restaurant-content p {
+  margin-bottom: 1rem;
+}
+
+.article-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 32px 0 20px;
+}
+
+.article-navigation a {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+#download-btn {
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+}
+
+.highlight {
+  background-color: #fff1a8;
+  border-radius: 4px;
+  padding: 0 2px;
+}
