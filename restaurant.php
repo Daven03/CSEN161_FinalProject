@@ -4,6 +4,8 @@
 
 declare(strict_types=1);
 
+require __DIR__ . "/auth.php";
+
 header("Content-Type: text/html; charset=UTF-8");
 
 function loadTemplateFile(array $possibleFiles): string

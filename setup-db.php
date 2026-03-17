@@ -23,6 +23,15 @@ try {
     ";
     $pdo->exec($createTableSql);
 
+    $createUsersTableSql = "
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL
+        )
+    ";
+    $pdo->exec($createUsersTableSql);
+
     if (!file_exists($jsonFile)) {
         throw new Exception("restaurants.json was not found.");
     }
@@ -57,8 +66,8 @@ try {
     }
 
     echo "<h1>Database setup complete.</h1>";
-    echo "<p>The restaurants table was created and seeded from restaurants.json.</p>";
-    echo "<p><a href='home.php'>Go to Home Page</a></p>";
+    echo "<p>The restaurants and users tables were created. Restaurants seeded from restaurants.json.</p>";
+    echo "<p><a href='login.php'>Go to Login Page</a></p>";
 } catch (PDOException $error) {
     echo "<h1>Database Error</h1>";
     echo "<p>" . htmlspecialchars($error->getMessage(), ENT_QUOTES, "UTF-8") . "</p>";
