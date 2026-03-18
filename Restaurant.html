@@ -14,7 +14,7 @@
 			<li class="navLi"><a class="navA" href="home.php">Home</a></li>
 			<li class="navLi"><a class="navA active" href="restaurants.php">Find Restaurants</a></li>
 			<li class="navLi"><a class="navA" href="Add.html">Add Restaurants</a></li>
-			<li class="navLi"><a class="navA" href="Profile.html">Profile</a></li>
+			<li class="navLi"><a class="navA" href="profile.php">Profile</a></li>
 			<li class="navLi"><a class="navA" href="logout.php">Logout</a></li>
 		</ul>
     </nav>
@@ -29,10 +29,45 @@
 
       <hr>
 
-      <!-- Restaurant review / description -->
-      <section id="restaurant-content"></section>
+      <section class="restaurant-section">
+        <h2>Restaurant Photo</h2>
+        <img id="restaurant-image" class="restaurant-image" src="images/placeholder.jpg" alt="Restaurant image">
+      </section>
 
       <hr>
+
+      <section class="restaurant-section">
+        <div class="section-heading">
+          <h2>Reviews</h2>
+          <p id="restaurant-review-count"></p>
+        </div>
+        <div id="restaurant-reviews-list" class="reviews-list"></div>
+      </section>
+
+      <section class="restaurant-section review-form-section">
+        <h2>Write a Review</h2>
+        <p id="review-form-user-note"></p>
+        <p id="review-form-message" class="form-message"></p>
+
+        <form id="review-form" action="submit-review.php" method="POST" class="review-form">
+          <input type="hidden" id="review-restaurant-id" name="restaurant_id" value="">
+
+          <label for="review-rating">Rating</label>
+          <select id="review-rating" name="rating" required>
+            <option value="">Choose a rating</option>
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Very Good</option>
+            <option value="3">3 - Good</option>
+            <option value="2">2 - Fair</option>
+            <option value="1">1 - Poor</option>
+          </select>
+
+          <label for="review-body">Your Review</label>
+          <textarea id="review-body" name="body" rows="6" maxlength="1000" required></textarea>
+
+          <button type="submit">Submit Review</button>
+        </form>
+      </section>
 
       <!-- Navigation -->
       <div class="article-navigation">

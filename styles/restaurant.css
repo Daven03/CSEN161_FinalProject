@@ -15,12 +15,117 @@
   flex-wrap: wrap;
 }
 
-#restaurant-content {
-  font-size: 1.05rem;
+.restaurant-image {
+  width: 100%;
+  max-width: 760px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+  box-shadow: 0 12px 28px rgba(78, 163, 255, 0.12);
 }
 
-#restaurant-content p {
-  margin-bottom: 1rem;
+.restaurant-section {
+  margin-bottom: 32px;
+}
+
+.restaurant-section h2 {
+  color: var(--accent-text);
+  margin-bottom: 14px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-heading p {
+  color: #666;
+}
+
+.reviews-list {
+  display: grid;
+  gap: 18px;
+}
+
+.review-card {
+  background: #fff;
+  border: 1px solid #e6edf9;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(78, 163, 255, 0.08);
+}
+
+.review-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.review-card h3 {
+  margin: 0 0 6px;
+}
+
+.review-author,
+.review-date,
+.empty-review-state,
+#review-form-user-note {
+  color: #666;
+}
+
+.review-rating {
+  margin: 0;
+  color: #f3a200;
+  font-size: 1.1rem;
+}
+
+.review-date {
+  margin: 10px 0 12px;
+  font-size: 0.95rem;
+}
+
+.review-body {
+  margin: 0;
+}
+
+.review-form {
+  display: grid;
+  gap: 12px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--dark-gray);
+  border-radius: 10px;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+.review-form textarea {
+  resize: vertical;
+}
+
+.review-form button {
+  width: fit-content;
+  padding: 0.75rem 1.2rem;
+}
+
+.form-message {
+  min-height: 1.5rem;
+}
+
+.success-message {
+  color: #1f7a1f;
+}
+
+.error-message {
+  color: #b42318;
 }
 
 .article-navigation {
@@ -44,4 +149,17 @@
   background-color: #fff1a8;
   border-radius: 4px;
   padding: 0 2px;
+}
+
+@media (max-width: 720px) {
+  .section-heading,
+  .review-card-header,
+  .article-navigation {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .restaurant-image {
+    height: 260px;
+  }
 }

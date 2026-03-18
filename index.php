@@ -1,9 +1,9 @@
 <?php
 // index.php
-// Sends the user to the home page.
+// Sends the user to the login page.
 
 declare(strict_types=1);
 
-header("Location: home.php");
+header("Location: login.php");
 exit;
 ?>

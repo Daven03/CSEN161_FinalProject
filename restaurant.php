@@ -1,6 +1,6 @@
 <?php
 // restaurant.php
-// Loads one restaurant review based on the id in the URL.
+// Loads one restaurant's info and all user reviews for that restaurant.
 
 declare(strict_types=1);
 
@@ -20,25 +20,76 @@ function loadTemplateFile(array $possibleFiles): string
     throw new Exception("Template file was not found.");
 }
 
+function createReviewCard(DOMDocument $document, array $review): DOMElement
+{
+    $card = $document->createElement("article");
+    $card->setAttribute("class", "review-card");
+
+    $header = $document->createElement("div");
+    $header->setAttribute("class", "review-card-header");
+
+    $titleGroup = $document->createElement("div");
+    $author = $document->createElement("p", "By " . $review["username"]);
+    $author->setAttribute("class", "review-author");
+    $titleGroup->appendChild($author);
+    $header->appendChild($titleGroup);
+
+    $rating = $document->createElement("p", str_repeat("*", (int) $review["rating"]) . str_repeat(".", 5 - (int) $review["rating"]));
+    $rating->setAttribute("class", "review-rating");
+    $header->appendChild($rating);
+
+    $card->appendChild($header);
+
+    $date = $document->createElement("p", $review["created_at"]);
+    $date->setAttribute("class", "review-date");
+    $card->appendChild($date);
+
+    $body = $document->createElement("p", $review["body"]);
+    $body->setAttribute("class", "review-body");
+    $card->appendChild($body);
+
+    return $card;
+}
+
 try {
     if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
         throw new Exception("A valid restaurant id is required in the URL.");
     }
 
     $restaurantId = (int) $_GET["id"];
+    $currentUsername = $_SESSION["username"] ?? "Reviewer";
+    $reviewSuccess = trim($_GET["review_success"] ?? "");
+    $reviewError = trim($_GET["review_error"] ?? "");
 
     $pdo = new PDO("sqlite:" . __DIR__ . "/restaurants.db");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT id, name, tags, content FROM restaurants WHERE id = :id";
-    $statement = $pdo->prepare($sql);
-    $statement->bindParam(":id", $restaurantId, PDO::PARAM_INT);
-    $statement->execute();
-    $restaurant = $statement->fetch(PDO::FETCH_ASSOC);
+    $restaurantSql = "SELECT id, name, tags, image FROM restaurants WHERE id = :id";
+    $restaurantStatement = $pdo->prepare($restaurantSql);
+    $restaurantStatement->bindParam(":id", $restaurantId, PDO::PARAM_INT);
+    $restaurantStatement->execute();
+    $restaurant = $restaurantStatement->fetch(PDO::FETCH_ASSOC);
 
     if (!$restaurant) {
         throw new Exception("Restaurant not found.");
     }
+
+    $reviewSql = "
+        SELECT
+            reviews.id,
+            reviews.rating,
+            reviews.body,
+            reviews.created_at,
+            users.username
+        FROM reviews
+        INNER JOIN users ON users.id = reviews.user_id
+        WHERE reviews.restaurant_id = :restaurant_id
+        ORDER BY datetime(reviews.created_at) DESC, reviews.id DESC
+    ";
+    $reviewStatement = $pdo->prepare($reviewSql);
+    $reviewStatement->bindParam(":restaurant_id", $restaurantId, PDO::PARAM_INT);
+    $reviewStatement->execute();
+    $reviews = $reviewStatement->fetchAll(PDO::FETCH_ASSOC);
 
     $previousSql = "
         SELECT id FROM restaurants
@@ -72,7 +123,12 @@ try {
 
     $titleElement = $document->getElementById("restaurant-title");
     $tagsElement = $document->getElementById("restaurant-tags");
-    $contentElement = $document->getElementById("restaurant-content");
+    $imageElement = $document->getElementById("restaurant-image");
+    $reviewCountElement = $document->getElementById("restaurant-review-count");
+    $reviewsListElement = $document->getElementById("restaurant-reviews-list");
+    $reviewUserNoteElement = $document->getElementById("review-form-user-note");
+    $reviewMessageElement = $document->getElementById("review-form-message");
+    $reviewRestaurantIdElement = $document->getElementById("review-restaurant-id");
     $previousLink = $document->getElementById("prev-link");
     $nextLink = $document->getElementById("next-link");
 
@@ -86,22 +142,57 @@ try {
         }
 
         $tagArray = array_map("trim", explode(",", $restaurant["tags"]));
-
         foreach ($tagArray as $tag) {
             $tagItem = $document->createElement("li", $tag);
+            $tagItem->setAttribute("class", "tag");
             $tagsElement->appendChild($tagItem);
         }
     }
 
-    if ($contentElement) {
-        while ($contentElement->firstChild) {
-            $contentElement->removeChild($contentElement->firstChild);
+    if ($imageElement) {
+        $imageElement->setAttribute("src", "images/" . $restaurant["image"]);
+        $imageElement->setAttribute("alt", $restaurant["name"]);
+    }
+
+    if ($reviewCountElement) {
+        $reviewCountElement->nodeValue = count($reviews) . " review" . (count($reviews) === 1 ? "" : "s");
+    }
+
+    if ($reviewsListElement) {
+        while ($reviewsListElement->firstChild) {
+            $reviewsListElement->removeChild($reviewsListElement->firstChild);
         }
 
-        // Append the saved HTML review content without removing paragraph tags.
-        $fragment = $document->createDocumentFragment();
-        $fragment->appendXML($restaurant["content"]);
-        $contentElement->appendChild($fragment);
+        if (count($reviews) === 0) {
+            $emptyState = $document->createElement("p", "No user reviews yet. Be the first to add one.");
+            $emptyState->setAttribute("class", "empty-review-state");
+            $reviewsListElement->appendChild($emptyState);
+        } else {
+            foreach ($reviews as $review) {
+                $reviewsListElement->appendChild(createReviewCard($document, $review));
+            }
+        }
+    }
+
+    if ($reviewUserNoteElement) {
+        $reviewUserNoteElement->nodeValue = "Posting as " . $currentUsername;
+    }
+
+    if ($reviewMessageElement) {
+        if ($reviewSuccess !== "") {
+            $reviewMessageElement->nodeValue = $reviewSuccess;
+            $reviewMessageElement->setAttribute("class", "form-message success-message");
+        } elseif ($reviewError !== "") {
+            $reviewMessageElement->nodeValue = $reviewError;
+            $reviewMessageElement->setAttribute("class", "form-message error-message");
+        } else {
+            $reviewMessageElement->nodeValue = "";
+            $reviewMessageElement->setAttribute("class", "form-message");
+        }
+    }
+
+    if ($reviewRestaurantIdElement) {
+        $reviewRestaurantIdElement->setAttribute("value", (string) $restaurantId);
     }
 
     if ($previousLink) {

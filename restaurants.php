@@ -20,22 +20,11 @@ function loadTemplateFile(array $possibleFiles): string
     throw new Exception("Template file was not found.");
 }
 
-function getPreviewText(string $htmlContent, int $maxLength = 160): string
-{
-    $plainText = trim(strip_tags($htmlContent));
-
-    if (strlen($plainText) <= $maxLength) {
-        return $plainText;
-    }
-
-    return substr($plainText, 0, $maxLength) . "...";
-}
-
 try {
     $pdo = new PDO("sqlite:" . __DIR__ . "/restaurants.db");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT id, name, tags, content FROM restaurants ORDER BY id ASC";
+    $sql = "SELECT id, name, tags, image FROM restaurants ORDER BY id ASC";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -61,6 +50,12 @@ try {
         $title = $document->createElement("h2", $restaurant["name"]);
         $card->appendChild($title);
 
+        $image = $document->createElement("img");
+        $image->setAttribute("class", "restaurant-card-image");
+        $image->setAttribute("src", "images/" . $restaurant["image"]);
+        $image->setAttribute("alt", $restaurant["name"]);
+        $card->appendChild($image);
+
         $tagArray = array_map("trim", explode(",", $restaurant["tags"]));
 
         $tagList = $document->createElement("ul");
@@ -74,10 +69,7 @@ try {
 
         $card->appendChild($tagList);
 
-        $preview = $document->createElement("p", getPreviewText($restaurant["content"]));
-        $card->appendChild($preview);
-
-        $link = $document->createElement("a", "Read Full Review");
+        $link = $document->createElement("a", "View");
         $link->setAttribute("href", "restaurant.php?id=" . $restaurant["id"]);
         $card->appendChild($link);
 

@@ -20,22 +20,11 @@ function loadTemplateFile(array $possibleFiles): string
     throw new Exception("Template file was not found.");
 }
 
-function getPreviewText(string $htmlContent, int $maxLength = 140): string
-{
-    $plainText = trim(strip_tags($htmlContent));
-
-    if (strlen($plainText) <= $maxLength) {
-        return $plainText;
-    }
-
-    return substr($plainText, 0, $maxLength) . "...";
-}
-
 try {
     $pdo = new PDO("sqlite:" . __DIR__ . "/restaurants.db");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT id, name, tags, content FROM restaurants ORDER BY id DESC LIMIT 1";
+    $sql = "SELECT id, name, tags, image FROM restaurants ORDER BY id DESC LIMIT 1";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     $latestRestaurant = $statement->fetch(PDO::FETCH_ASSOC);
@@ -50,16 +39,20 @@ try {
 
     if ($latestRestaurant) {
         $titleElement = $document->getElementById("home-latest-title");
+        $imageElement = $document->getElementById("home-latest-image");
         $tagsElement = $document->getElementById("home-latest-tags");
         $timeElement = $document->getElementById("home-latest-time");
-        $previewElement = $document->getElementById("home-latest-preview");
         $linkElement = $document->getElementById("home-continue-link");
 
         $tagArray = array_map("trim", explode(",", $latestRestaurant["tags"]));
-        $previewText = getPreviewText($latestRestaurant["content"]);
 
         if ($titleElement) {
             $titleElement->nodeValue = $latestRestaurant["name"];
+        }
+
+        if ($imageElement) {
+            $imageElement->setAttribute("src", "images/" . $latestRestaurant["image"]);
+            $imageElement->setAttribute("alt", $latestRestaurant["name"]);
         }
 
         if ($tagsElement) {
@@ -75,16 +68,12 @@ try {
         }
 
         if ($timeElement) {
-            $timeElement->nodeValue = "Latest review in the database";
-        }
-
-        if ($previewElement) {
-            $previewElement->nodeValue = $previewText;
+            $timeElement->nodeValue = "Newest restaurant in the database";
         }
 
         if ($linkElement) {
             $linkElement->setAttribute("href", "restaurant.php?id=" . $latestRestaurant["id"]);
-            $linkElement->nodeValue = "Read Full Review";
+            $linkElement->nodeValue = "View";
         }
     }
 

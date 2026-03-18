@@ -18,10 +18,19 @@ try {
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
             tags TEXT NOT NULL,
-            content TEXT NOT NULL
+            image TEXT NOT NULL
         )
     ";
     $pdo->exec($createTableSql);
+
+    $columnNames = [];
+    foreach ($pdo->query("PRAGMA table_info(restaurants)") as $column) {
+        $columnNames[] = $column["name"];
+    }
+
+    if (!in_array("image", $columnNames, true)) {
+        $pdo->exec("ALTER TABLE restaurants ADD COLUMN image TEXT NOT NULL DEFAULT ''");
+    }
 
     $createUsersTableSql = "
         CREATE TABLE IF NOT EXISTS users (
@@ -31,6 +40,24 @@ try {
         )
     ";
     $pdo->exec($createUsersTableSql);
+
+    $createReviewsTableSql = "
+        CREATE TABLE IF NOT EXISTS reviews (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            restaurant_id INTEGER NOT NULL,
+            user_id INTEGER NOT NULL,
+            rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+            body TEXT NOT NULL,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )
+    ";
+    $pdo->exec($createReviewsTableSql);
+
+    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_reviews_restaurant_id ON reviews(restaurant_id)");
+    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_reviews_user_id ON reviews(user_id)");
+    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_reviews_created_at ON reviews(created_at)");
 
     if (!file_exists($jsonFile)) {
         throw new Exception("restaurants.json was not found.");
@@ -46,27 +73,40 @@ try {
     // Clear old seed data so the setup script can be run more than once.
     $pdo->exec("DELETE FROM restaurants");
 
-    $insertSql = "
-        INSERT INTO restaurants (id, name, tags, content)
-        VALUES (:id, :name, :tags, :content)
-    ";
+    $hasLegacyContentColumn = in_array("content", $columnNames, true);
+
+    if ($hasLegacyContentColumn) {
+        $insertSql = "
+            INSERT INTO restaurants (id, name, tags, content, image)
+            VALUES (:id, :name, :tags, :content, :image)
+        ";
+    } else {
+        $insertSql = "
+            INSERT INTO restaurants (id, name, tags, image)
+            VALUES (:id, :name, :tags, :image)
+        ";
+    }
     $statement = $pdo->prepare($insertSql);
 
     foreach ($restaurants as $restaurant) {
         $id = (int) $restaurant["id"];
         $name = $restaurant["name"];
         $tags = implode(", ", $restaurant["tags"]);
-        $content = $restaurant["content"];
+        $image = $restaurant["image"] ?? "";
+        $content = $image;
 
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->bindParam(":name", $name, PDO::PARAM_STR);
         $statement->bindParam(":tags", $tags, PDO::PARAM_STR);
-        $statement->bindParam(":content", $content, PDO::PARAM_STR);
+        if ($hasLegacyContentColumn) {
+            $statement->bindParam(":content", $content, PDO::PARAM_STR);
+        }
+        $statement->bindParam(":image", $image, PDO::PARAM_STR);
         $statement->execute();
     }
 
     echo "<h1>Database setup complete.</h1>";
-    echo "<p>The restaurants and users tables were created. Restaurants seeded from restaurants.json.</p>";
+    echo "<p>The restaurants, users, and reviews tables were created. Restaurants seeded from restaurants.json.</p>";
     echo "<p><a href='login.php'>Go to Login Page</a></p>";
 } catch (PDOException $error) {
     echo "<h1>Database Error</h1>";

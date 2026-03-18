@@ -1,38 +1,38 @@
 [
   {
     "id": 1,
-    "name": "Restaurant 1",
-    "tags": ["pizza", "casual", "downtown"],
-    "content": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi sem placerat in id cursus mi.</p>"
+    "name": "Puesto Santa Clara",
+    "tags": ["Italian", "Latin"],
+    "image": "puestosantaclara.jpg"
   },
   {
     "id": 2,
-    "name": "Restaurant 2",
-    "tags": ["chinese", "dinner", "noodles"],
-    "content": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi sem placerat in id cursus mi.</p>"
+    "name": "Ramen Taka",
+    "tags": ["Japanese", "Asian", "ramen"],
+    "image": "ramentaka.jpg"
   },
   {
     "id": 3,
-    "name": "Restaurant 3",
-    "tags": ["seafood", "lunch", "grill"],
-    "content": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi sem placerat in id cursus mi.</p>"
+    "name": "Din Tai Fung",
+    "tags": ["Chinese", "Asian"],
+    "image": "dintaifung.jpg"
   },
   {
     "id": 4,
-    "name": "Restaurant 4",
-    "tags": ["healthy", "bowls", "lunch"],
-    "content": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi sem placerat in id cursus mi.</p>"
+    "name": "Athena Grill",
+    "tags": ["Greek", "bowls", "lunch"],
+    "image": "athena-grill.jpg"
   },
   {
     "id": 5,
-    "name": "Restaurant 5",
-    "tags": ["mexican", "street-food", "tacos"],
-    "content": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi sem placerat in id cursus mi.</p>"
+    "name": "Fleming's Prime Steakhouse and Wine Bar",
+    "tags": ["Steakhouse", "Bar"],
+    "image": "flemings.jpg"
   },
   {
     "id": 6,
-    "name": "Restaurant 6",
-    "tags": ["breakfast", "brunch", "coffee"],
-    "content": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi sem placerat in id cursus mi.</p>"
+    "name": "Mission City Grill",
+    "tags": ["American", "Bar"],
+    "image": "missioncitygrill.jpg"
   }
 ]

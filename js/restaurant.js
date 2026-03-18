@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
   restoreScrollOnLoad();
   setupScrollEndSaver();
 
-  const contentEl = document.querySelector("#restaurant-content");
+  const contentEl = document.querySelector("#restaurant-reviews-list");
   if (contentEl) {
     setupHighlighting(contentEl);
   }
