@@ -1,5 +1,4 @@
 <?php
-// restaurant.php
 // Loads one restaurant's info and all user reviews for that restaurant.
 
 declare(strict_types=1);
@@ -8,6 +7,7 @@ require __DIR__ . "/auth.php";
 
 header("Content-Type: text/html; charset=UTF-8");
 
+// Helper function to find the template file
 function loadTemplateFile(array $possibleFiles): string
 {
     foreach ($possibleFiles as $fileName) {
@@ -20,6 +20,7 @@ function loadTemplateFile(array $possibleFiles): string
     throw new Exception("Template file was not found.");
 }
 
+// Helper function to create a review card element from a review array
 function createReviewCard(DOMDocument $document, array $review): DOMElement
 {
     $card = $document->createElement("article");
@@ -51,6 +52,7 @@ function createReviewCard(DOMDocument $document, array $review): DOMElement
     return $card;
 }
 
+// Main logic to load the restaurant and reviews, and render the page
 try {
     if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
         throw new Exception("A valid restaurant id is required in the URL.");

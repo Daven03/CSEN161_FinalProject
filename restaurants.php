@@ -1,5 +1,4 @@
 <?php
-// restaurants.php
 // Loads the restaurants template and adds one card for each restaurant.
 
 declare(strict_types=1);
@@ -8,6 +7,7 @@ require __DIR__ . "/auth.php";
 
 header("Content-Type: text/html; charset=UTF-8");
 
+// Helper function to find the template file
 function loadTemplateFile(array $possibleFiles): string
 {
     foreach ($possibleFiles as $fileName) {
@@ -20,6 +20,7 @@ function loadTemplateFile(array $possibleFiles): string
     throw new Exception("Template file was not found.");
 }
 
+// Helper function to create a review card element from a review array
 try {
     $pdo = new PDO("sqlite:" . __DIR__ . "/restaurants.db");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

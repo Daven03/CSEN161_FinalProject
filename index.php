@@ -1,5 +1,4 @@
 <?php
-// index.php
 // Sends the user to the login page.
 
 declare(strict_types=1);

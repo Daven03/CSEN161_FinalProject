@@ -1,4 +1,4 @@
-/* Center the main content */
+
 main {
     max-width: 900px;
     margin: 40px auto;
@@ -6,31 +6,31 @@ main {
     text-align: center;
 }
 
-/* Main title */
+
 h1 {
     font-size: 3rem;
     margin-bottom: 10px;
 }
 
-/* Subtitle under title */
+
 .details {
     font-size: 1.2rem;
     color: #666;
     margin-bottom: 30px;
 }
 
-/* Section container */
+
 .section {
     margin: 40px 0;
 }
 
-/* Section heading */
+
 .section h2 {
     font-size: 1.8rem;
     margin-bottom: 15px;
 }
 
-/* Paragraph styling inside sections */
+
 .section p {
     font-size: 1rem;
     line-height: 1.6;
@@ -85,7 +85,7 @@ hr {
     border-top: 1px solid #ddd;
 }
 
-/* Footer styling */
+
 footer {
     text-align: center;
     padding: 20px;

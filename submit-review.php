@@ -24,6 +24,7 @@ if ($body === "" || $rating < 1 || $rating > 5) {
     exit;
 }
 
+// Main logic to insert the new review into the database and redirect back to the restaurant page
 try {
     $pdo = new PDO("sqlite:" . __DIR__ . "/restaurants.db");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

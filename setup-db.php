@@ -1,5 +1,4 @@
 <?php
-// setup-db.php
 // Creates the SQLite database and loads starter data from restaurants.json.
 
 declare(strict_types=1);

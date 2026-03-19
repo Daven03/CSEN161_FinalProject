@@ -10,6 +10,7 @@ $username = $_SESSION["username"] ?? "Reviewer";
 $favoriteRestaurants = [];
 $userReviews = [];
 
+// Connect to the database and fetch the user's profile information, including their favorite restaurants and reviews
 try {
     $pdo = new PDO("sqlite:" . __DIR__ . "/restaurants.db");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
