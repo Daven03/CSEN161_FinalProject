@@ -93,28 +93,6 @@ try {
     $reviewStatement->execute();
     $reviews = $reviewStatement->fetchAll(PDO::FETCH_ASSOC);
 
-    $previousSql = "
-        SELECT id FROM restaurants
-        WHERE id < :id
-        ORDER BY id DESC
-        LIMIT 1
-    ";
-    $previousStatement = $pdo->prepare($previousSql);
-    $previousStatement->bindParam(":id", $restaurantId, PDO::PARAM_INT);
-    $previousStatement->execute();
-    $previousRestaurant = $previousStatement->fetch(PDO::FETCH_ASSOC);
-
-    $nextSql = "
-        SELECT id FROM restaurants
-        WHERE id > :id
-        ORDER BY id ASC
-        LIMIT 1
-    ";
-    $nextStatement = $pdo->prepare($nextSql);
-    $nextStatement->bindParam(":id", $restaurantId, PDO::PARAM_INT);
-    $nextStatement->execute();
-    $nextRestaurant = $nextStatement->fetch(PDO::FETCH_ASSOC);
-
     $templatePath = loadTemplateFile(["restaurant.html", "Restaurant.html"]);
     $html = file_get_contents($templatePath);
 
@@ -131,8 +109,6 @@ try {
     $reviewUserNoteElement = $document->getElementById("review-form-user-note");
     $reviewMessageElement = $document->getElementById("review-form-message");
     $reviewRestaurantIdElement = $document->getElementById("review-restaurant-id");
-    $previousLink = $document->getElementById("prev-link");
-    $nextLink = $document->getElementById("next-link");
 
     if ($titleElement) {
         $titleElement->nodeValue = $restaurant["name"];
@@ -195,24 +171,6 @@ try {
 
     if ($reviewRestaurantIdElement) {
         $reviewRestaurantIdElement->setAttribute("value", (string) $restaurantId);
-    }
-
-    if ($previousLink) {
-        if ($previousRestaurant) {
-            $previousLink->setAttribute("href", "restaurant.php?id=" . $previousRestaurant["id"]);
-        } else {
-            $previousLink->setAttribute("href", "#");
-            $previousLink->nodeValue = "No Previous Restaurant";
-        }
-    }
-
-    if ($nextLink) {
-        if ($nextRestaurant) {
-            $nextLink->setAttribute("href", "restaurant.php?id=" . $nextRestaurant["id"]);
-        } else {
-            $nextLink->setAttribute("href", "#");
-            $nextLink->nodeValue = "No Next Restaurant";
-        }
     }
 
     echo $document->saveHTML();

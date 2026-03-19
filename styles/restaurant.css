@@ -130,14 +130,18 @@
 
 .article-navigation {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
   margin: 32px 0 20px;
 }
 
 .article-navigation a {
   color: var(--accent-text);
   font-weight: 600;
+  border: 1px solid #e6edf9;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background: white;
+  box-shadow: 0 10px 24px rgba(78, 163, 255, 0.08);
 }
 
 #download-btn {
@@ -153,8 +157,7 @@
 
 @media (max-width: 720px) {
   .section-heading,
-  .review-card-header,
-  .article-navigation {
+  .review-card-header {
     flex-direction: column;
     align-items: flex-start;
   }
